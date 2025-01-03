@@ -1,37 +1,25 @@
-import PlaceCard from '../../components/place-card/place-card';
+import { Helmet } from 'react-helmet-async';
+import Logo from '@/components/logo/logo';
+import HeaderNav from '@/components/navbar/navbar';
+import { Offers } from '../../types/offer';
+import CardList from '@/components/card-list/card-list';
 
 type MainScreenProps = {
-  placeAmount: number;
+    placeAmount: number;
+    offers: Offers;
 }
 
-export default function MainScreen({placeAmount}: MainScreenProps): JSX.Element {
+export default function MainScreen({placeAmount: placeAmount, offers}: MainScreenProps): JSX.Element {
   return (
     <div className="page page--gray page--main">
+      <Helmet>
+        <title>6 cities</title>
+      </Helmet>
       <header className="header">
         <div className="container">
           <div className="header__wrapper">
-            <div className="header__left">
-              <a className="header__logo-link header__logo-link--active">
-                <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41"/>
-              </a>
-            </div>
-            <nav className="header__nav">
-              <ul className="header__nav-list">
-                <li className="header__nav-item user">
-                  <a className="header__nav-link header__nav-link--profile" href="#">
-                    <div className="header__avatar-wrapper user__avatar-wrapper">
-                    </div>
-                    <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                    <span className="header__favorite-count">3</span>
-                  </a>
-                </li>
-                <li className="header__nav-item">
-                  <a className="header__nav-link" href="#">
-                    <span className="header__signout">Sign out</span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
+            <Logo />
+            <HeaderNav offers={offers}/>
           </div>
         </div>
       </header>
@@ -94,53 +82,7 @@ export default function MainScreen({placeAmount}: MainScreenProps): JSX.Element 
                   <li className="places__option" tabIndex={0}>Top rated first</li>
                 </ul>
               </form>
-              <div className="cities__places-list places__list tabs__content">
-                <PlaceCard
-                  isPremium={true}
-                  imagePath="img/apartment-01.jpg"
-                  price={120}
-                  isActive={false}
-                  name="Beautiful &amp; luxurious apartment at great location"
-                  rating={4}
-                  type="Apartment"
-                />
-                <PlaceCard
-                  isPremium={true}
-                  imagePath="img/apartment-01.jpg"
-                  price={120}
-                  isActive={false}
-                  name="Beautiful &amp; luxurious apartment at great location"
-                  rating={4}
-                  type="Apartment"
-                />
-                <PlaceCard
-                  isPremium={true}
-                  imagePath="img/apartment-01.jpg"
-                  price={120}
-                  isActive={false}
-                  name="Beautiful &amp; luxurious apartment at great location"
-                  rating={4}
-                  type="Apartment"
-                />
-                <PlaceCard
-                  isPremium={true}
-                  imagePath="img/apartment-01.jpg"
-                  price={120}
-                  isActive={false}
-                  name="Beautiful &amp; luxurious apartment at great location"
-                  rating={4}
-                  type="Apartment"
-                />
-                <PlaceCard
-                  isPremium={true}
-                  imagePath="img/apartment-01.jpg"
-                  price={120}
-                  isActive={false}
-                  name="Beautiful &amp; luxurious apartment at great location"
-                  rating={4}
-                  type="Apartment"
-                />
-              </div>
+              <CardList offers={offers}/>
             </section>
             <div className="cities__right-section">
               <section className="cities__map map"></section>
