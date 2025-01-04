@@ -122,7 +122,7 @@ export default function MainPage(): JSX.Element {
                 <div className='cities__places-list places__list tabs__content'>
                   <OffersList
                     offers={currentCityOffers}
-                    setSelectedOffer={setActiveOfferId}
+                    onActiveOfferChange={setActiveOfferId}
                   />
                 </div>
               </section>
