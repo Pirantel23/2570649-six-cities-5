@@ -12,7 +12,7 @@ export default function Map({
 }: {
   location: Location;
   offers: Offers;
-  selectedOffer: Offer | null;
+  selectedOffer: Offer | undefined;
 }) {
   const mapRef = useRef(null);
   const map = useMap(mapRef, location);
