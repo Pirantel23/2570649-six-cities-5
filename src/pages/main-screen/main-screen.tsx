@@ -2,7 +2,7 @@ import { Offers } from '@/types/offer';
 import OffersList from '@/components/offer-list/offer-list';
 import Map from '@/components/map/map';
 import { CITIES, SortType } from '@/const';
-import CitiesList from '@/components/city-list/city-list';
+import CityList from '@/components/city-list/city-list';
 import {useState, useEffect} from 'react';
 import { useAppSelector } from '@/hooks/index';
 
@@ -85,7 +85,7 @@ export default function MainPage(): JSX.Element {
           <h1 className='visually-hidden'>Cities</h1>
           <div className='tabs'>
             <section className='locations container'>
-              <CitiesList cities={CITIES}/>
+              <CityList/>
             </section>
           </div>
           <div className='cities'>
