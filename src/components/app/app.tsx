@@ -1,6 +1,4 @@
-import { Route, Routes } from 'react-router-dom';
-import HistoryRouter from '@/components/history-route/history-route';
-import browserHistory from '@/browser-history';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import {HelmetProvider} from 'react-helmet-async';
 import { AppRoute, AuthStatus } from '@/const';
 import PrivateRoute from '@/components/private-route/private-route';
@@ -9,51 +7,47 @@ import MainScreen from '@/pages/main-screen/main-screen';
 import OfferScreen from '@/pages/offer-screen/offer-screen';
 import FavoritesScreen from '@/pages/favourite-screen/favourite-screen';
 import NotFoundScreen from '@/pages/404/404';
-import { useAppSelector } from '@/hooks/index';
-import LoadingScreen from '@/pages/loading-screen/loading-screen';
+import { useAppDispatch, useAppSelector } from '@/hooks/index';
+import { setOffersList } from '@/store/action';
 
 export default function App(): JSX.Element {
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
-  const isOffersDataLoading = useAppSelector((state) => state.isOffersDataLoading);
+  const offers = useAppSelector((state) => state.offers);
 
-  if (authorizationStatus === AuthStatus.Unknown || isOffersDataLoading) {
-    return (
-      <LoadingScreen />
-    );
-  }
+  const dispatch = useAppDispatch();
+  dispatch(setOffersList(offers));
 
   return (
     <HelmetProvider>
-      <HistoryRouter history={browserHistory}>
+      <BrowserRouter>
         <Routes>
           <Route
             path={AppRoute.Root}
-            element={<MainScreen/>}
+            element={<MainScreen />}
           />
           <Route
             path={AppRoute.Login}
-            element={<LoginScreen/>}
+            element={<LoginScreen />}
           />
           <Route
             path={AppRoute.Favorites}
             element={
               <PrivateRoute
-                authorizationStatus={authorizationStatus}
+                authorizationStatus={AuthStatus.Authenticated}
               >
-                <FavoritesScreen/>
+                <FavoritesScreen />
               </PrivateRoute>
             }
           />
           <Route
             path={`${AppRoute.Offer}/:id`}
-            element={<OfferScreen/>}
+            element={<OfferScreen />}
           />
           <Route
             path='*'
             element={<NotFoundScreen />}
           />
         </Routes>
-      </HistoryRouter>
+      </BrowserRouter>
     </HelmetProvider>
   );
 }
