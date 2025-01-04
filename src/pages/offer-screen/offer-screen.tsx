@@ -9,6 +9,7 @@ import { ReviewList } from '@/components/review-list/review-list';
 import Map from '@/components/map/map';
 import { NearbyOfferList } from '@/components/nearby-offer-list/nearby-offer-list';
 
+
 export default function OfferPage(): JSX.Element {
   const offers = useAppSelector((state) => state.offers);
   const reviews = useAppSelector((state) => state.reviews);

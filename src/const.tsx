@@ -1,7 +1,7 @@
 import { Cities } from '@/types/city';
 
 export const Config = {
-    placeAmount: 12,
+  placeAmount: 12,
 };
 
 export enum AppRoute {

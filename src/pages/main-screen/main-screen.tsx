@@ -1,7 +1,7 @@
 import { Offers } from '@/types/offer';
 import OffersList from '@/components/offer-list/offer-list';
 import Map from '@/components/map/map';
-import { CITIES, SortType } from '@/const';
+import { SortType } from '@/const';
 import CityList from '@/components/city-list/city-list';
 import {useState, useEffect} from 'react';
 import { useAppSelector } from '@/hooks/index';
@@ -92,7 +92,7 @@ export default function MainPage(): JSX.Element {
             <div className='cities__places-container container'>
               <section className='cities__places places'>
                 <h2 className='visually-hidden'>Places</h2>
-                <b className="places__found">{`${currentCityOffers.length} places to stay in ${city}`}</b>
+                <b className="places__found">{`${currentCityOffers.length} places to stay in ${city.name}`}</b>
                 <form className='places__sorting' action='#' method='get'>
                   <span className='places__sorting-caption'>Sort by</span>
                   <span className='places__sorting-type' tabIndex={0}>

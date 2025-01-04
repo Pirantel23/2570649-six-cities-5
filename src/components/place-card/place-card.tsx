@@ -5,7 +5,7 @@ import { AppRoute } from '@/const';
 type PlaceCardProps = {
   offer: Offer;
 }
-  
+
 export default function PlaceCard({offer}: PlaceCardProps): JSX.Element {
   return (
     <article className="cities__card place-card">
