@@ -17,14 +17,6 @@ export enum AuthStatus {
     Authenticated,
 }
 
-export enum APIRoute {
-    Offers = '/offers',
-    Login = '/login',
-    Favorite = '/favorite',
-    Comments = '/comments',
-    Logout = '/logout',
-}
-
 export const URL_PIN =
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/pin.svg';
 export const URL_PIN_ACTIVE =

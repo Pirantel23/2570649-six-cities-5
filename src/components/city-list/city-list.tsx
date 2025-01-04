@@ -1,30 +1,27 @@
-import { useState } from 'react';
 import { useAppDispatch } from '@/hooks/index';
-import { changeCity } from '@/store/action';
-import { City } from '@/types/city';
-import { CITIES, DEFAULT_CITY } from '@/const';
+import { setCity } from '@/store/action';
+import { Cities } from '@/types/city';
 
-export default function CityList(): JSX.Element {
+type CitiesListProps = {
+  cities: Cities;
+};
+
+export default function CitiesList({ cities }: CitiesListProps): JSX.Element {
   const dispatch = useAppDispatch();
-  const [activeCity, setActiveCity] = useState<City | null>(DEFAULT_CITY);
 
-  const handleCityChange = (city: City) => {
-    setActiveCity(city);
-    dispatch(changeCity(city));
+  const handleCityChange = (city: string) => {
+    dispatch(setCity(cities.find((cityItem) => cityItem.name === city)!));
   };
 
   return (
     <ul className="locations__list tabs__list">
-      {CITIES.map((city) => (
+      {cities.map((city) => (
         <li
           key={city.name}
           className="locations__item"
-          onClick={() => handleCityChange(city)}
+          onClick={() => handleCityChange(city.name)}
         >
-          <a
-            className={`locations__item-link tabs__item ${activeCity?.name === city.name ? 'tabs__item--active' : ''}`}
-            href="#"
-          >
+          <a className="locations__item-link tabs__item" href="#">
             <span>{city.name}</span>
           </a>
         </li>
