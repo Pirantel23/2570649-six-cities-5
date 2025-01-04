@@ -14,3 +14,8 @@ export enum AuthStatus {
     NotAuthenticated,
     Authenticated,
 }
+
+export const URL_PIN =
+  'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/pin.svg';
+export const URL_PIN_ACTIVE =
+  'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/main-pin.svg';
