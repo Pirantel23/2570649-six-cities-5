@@ -1,32 +1,27 @@
-import { Offers } from '@/types/offer';
+import { Offers, Offer } from '@/types/offer';
 import PlaceCard from '@/components/place-card/place-card';
-import { useState } from 'react';
 
-type ListProps = {
+type CardListProps = {
     offers: Offers;
+    selectedOffer: Offer | null;
+    setSelectedOffer: (offer: Offer | null) => void;
 };
 
 
-export default function CardList({offers}: ListProps): JSX.Element {
-  const [, setActiveOfferId] = useState<string | null>(null);
-
-  const handleMouseEnter = (offerId: string) => {
-    setActiveOfferId(offerId);
-  };
-
-  const handleMouseLeave = () => {
-    setActiveOfferId(null);
-  };
-
+export default function CardList(props: CardListProps): JSX.Element {
   return (
     <div className="cities__places-list places__list tabs__content">
-      {offers.map((offer) => (
-        <PlaceCard
+      {props.offers.map((offer) => (
+        <div
           key={offer.id}
-          offer={offer}
-          onMouseEnter={() => handleMouseEnter(offer.id)}
-          onMouseLeave={handleMouseLeave}
-        />))}
+          onMouseEnter={() => props.setSelectedOffer(offer)}
+          onMouseLeave={() => props.setSelectedOffer(null)}
+        >
+          <PlaceCard
+            key={offer.id}
+            offer={offer}
+          />
+        </div>))}
     </div>
   );
 }
