@@ -1,7 +1,7 @@
 import { Offers } from '@/types/offer';
 import OffersList from '@/components/offer-list/offer-list';
 import Map from '@/components/map/map';
-import { CITIES } from '@/const';
+import { CITIES, SortType } from '@/const';
 import CitiesList from '@/components/city-list/city-list';
 import {useState, useEffect} from 'react';
 import { useAppSelector } from '@/hooks/index';
@@ -9,6 +9,7 @@ import { useAppSelector } from '@/hooks/index';
 export default function MainPage(): JSX.Element {
   const offers = useAppSelector((state) => state.offers);
   const city = useAppSelector((state) => state.city);
+  const sortType = useAppSelector((state) => state.sortType);
 
   const [currentCityOffers, setCurrentCityOffers] = useState<Offers>(offers);
   const [activeOfferId, setActiveOfferId] = useState<string | null>(null);
@@ -16,9 +17,21 @@ export default function MainPage(): JSX.Element {
   const selectedOffer = offers.find((offer) => offer.id === activeOfferId);
 
   useEffect(() => {
-    const filteredOffers = offers.filter((offer) => offer.city.name === city);
-    setCurrentCityOffers(filteredOffers);
-  }, [city, offers]);
+    const filteredOffers = offers.filter((offer) => offer.city.name === city.name);
+    const sortedOffers = [...filteredOffers].sort((a, b) => {
+      switch (sortType) {
+        case SortType.PriceLowToHigh:
+          return a.price - b.price;
+        case SortType.PriceHighToLow:
+          return b.price - a.price;
+        case SortType.TopRated:
+          return b.rating - a.rating;
+        default:
+          return 0;
+      }
+    });
+    setCurrentCityOffers(sortedOffers);
+  }, [city, offers, sortType]);
 
   return (
     <>
@@ -116,7 +129,7 @@ export default function MainPage(): JSX.Element {
               <div className='cities__right-section'>
                 <section className='cities__map map'>
                   <Map
-                    location={offers[0].city.location}
+                    location={city.location}
                     offers={currentCityOffers}
                     selectedOffer={selectedOffer}
                   />
